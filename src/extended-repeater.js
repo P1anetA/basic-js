@@ -32,7 +32,7 @@ function repeater(str, options) {
     result.push(str);
   }
   if (repeatTimes !== 0) {
-    for (let i = 0; i < repeatTimes; i++) {
+    for (let i = 1; i < repeatTimes; i++) {
     result.push(str);}
   }
   return result.join(separator);
