@@ -21,7 +21,7 @@ const chainMaker = {
   },
   removeLink(position) {
     if (isNaN(position) || position % 1 != 0) {
-      throw Error(`You can't remove incorrect link!`);
+      return Error(`You can't remove incorrect link!`);
     }
     this.result = this.result.filter(r => r !== this.result[position - 1])
     return this;
@@ -34,7 +34,7 @@ const chainMaker = {
     return this.result.join('~~');
   }
 };
-console.log(chainMaker.addLink().addLink(2).addLink(3).removeLink().reverseChain().finishChain())
+// console.log(chainMaker.addLink().addLink(2).addLink(3).removeLink().reverseChain().finishChain())
 
 module.exports = {
   chainMaker

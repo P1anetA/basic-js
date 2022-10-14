@@ -17,31 +17,44 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 function repeater(str, options) {
   let {
-    repeatTimes = 0,
+    repeatTimes ,
     separator = '+',
     addition = '',
-    additionRepeatTimes = 0,
-    additionSeparator = '|'
+    additionRepeatTimes,
+    additionSeparator
 } = options;
   let result = [];
-  if (additionRepeatTimes !== 0) {
+  if (addition && !additionRepeatTimes) {
+    str += addition;
+  }
+  else if (additionRepeatTimes >= 1) {
     for (let j = 0; j < additionRepeatTimes; j++) {
-      str += additionSeparator;
-      str += addition;
+      if (!additionSeparator) {
+        str += addition;
+      } else {
+        if (j = 0) {
+          str += addition;
+        } else {
+          str += additionSeparator;
+          str += addition;
+        }
+      }
     }
-    result.push(str);
   }
-  if (repeatTimes !== 0) {
-    for (let i = 1; i < repeatTimes; i++) {
+  if (repeatTimes) {
+    for (let i = 0; i < repeatTimes; i++) {
     result.push(str);}
+    return result.join(separator)
+  } else {
+    result.push(str);
+    return result.join(separator)
   }
-  return result.join(separator);
 }
-console.log(repeater('j445', {repeatTimes : 2,
-  separator : '+',
-  addition : 'Add',
-  additionRepeatTimes : 2,
-  additionSeparator : '**'}));
+// console.log(repeater('j445', {repeatTimes : 2,
+//   separator : '+',
+//   addition : 'Add',
+//   additionRepeatTimes : 2,
+//   additionSeparator : '**'}));
 
 module.exports = {
   repeater
