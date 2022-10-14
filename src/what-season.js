@@ -11,23 +11,32 @@ const { NotImplementedError } = require('../extensions/index.js');
  * getSeason(new Date(2020, 02, 31)) => 'spring'
  *
  */
-function getSeason(/* date */) {
-  if (Object.prototype.toString.call(date) !== "[object Date]" || date.getMonth() < 12){
-    return Error ('Invalid date!');
+function getSeason(date) {
+  if (!date){
+    return 'Unable to determine the time of year!';
   }
-  if (date.getMonth() < 3) {
+  if (Object.prototype.toString.call(date) !== "[object Date]"){
+    throw Error ('Invalid date!');
+  }
+  if (Object.keys(date).length > 0) {
+    throw Error('Invalid date!');
+  }
+  if (!date.getMonth){
+    return false;
+  }
+  if (date.getMonth() < 2) {
     return  date = 'winter';
   }
-  if (date.getMonth() < 6) {
+  if (date.getMonth() < 5) {
     return date =  'spring';
   }
-  if (date.getMonth() < 9) {
+  if (date.getMonth() < 8) {
     return date = 'summer';
   }
-  if (date.getMonth() < 12) {
-    return date = 'autumn';
+  if (date.getMonth() < 11) {
+    return date = /autumn|fall/;
   }
-  if (date.getMonth() == 12) {
+  if (date.getMonth() <= 11) {
     return date = 'winter';
   }
 }
