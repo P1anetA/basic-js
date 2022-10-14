@@ -19,27 +19,32 @@ function repeater(str, options) {
   let {
     repeatTimes ,
     separator = '+',
-    addition = '',
+    addition,
     additionRepeatTimes,
-    additionSeparator
+    additionSeparator = '|'
 } = options;
   let result = [];
+  if (addition === false) {
+    addition = 'false';
+  }
+  if (addition === null) {
+    addition = 'null';
+  }
   if (addition && !additionRepeatTimes) {
     str += addition;
   }
-  else if (additionRepeatTimes >= 1) {
+  else if (addition && additionRepeatTimes >= 1) {
     for (let j = 0; j < additionRepeatTimes; j++) {
       if (!additionSeparator) {
         str += addition;
+      } else if (j >= 1) {
+        str += additionSeparator;
+        str += addition;
       } else {
-        if (j = 0) {
           str += addition;
-        } else {
-          str += additionSeparator;
-          str += addition;
-        }
       }
     }
+
   }
   if (repeatTimes) {
     for (let i = 0; i < repeatTimes; i++) {
