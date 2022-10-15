@@ -13,34 +13,36 @@ const { NotImplementedError } = require('../extensions/index.js');
  * transform([1, 2, 3, '--discard-prev', 4, 5]) => [1, 2, 4, 5]
  *
  */
-function transform(arr) {
-  if (!Array.isArray(arr)) {
-    return Error(`'arr' parameter must be an instance of the Array!`);
+function transform(array) {
+  if (!Array.isArray(array)) {
+    throw new Error(`'arr' parameter must be an instance of the Array!`);
   }
-  for (let i = 0; i <= arr.length; i++) {
-    if (arr[i] == '--discard-next') {
-        let result = arr.slice(0, i) + "," + arr.slice(i + 2);
-        let newArray = result.replace(/,*$/, '');
-        return newArray;
+  let newArray = [] ;
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] == '--discard-next') {
+        i++;
     }
-    if (arr[i] == '--discard-prev') {
-        let result = arr.slice(0, i - 1) + "," + arr.slice(i + 1);
-        let newArray = result.replace(/,*$/, '');
-        return newArray;
+     else if (array[i] == '--discard-prev') {
+      if (array[i - 1] && array[i - 1] == newArray[newArray.length - 1]) {
+        newArray.pop();
+      }
     }
-    if (arr[i] == '--double-next') {
-        let result = arr.slice(0, i) + "," + arr[i + 1] + "," + arr.slice(i + 1);
-        let newArray = result.replace(/,*$/, '');
-        return newArray;
+    else if (array[i] == '--double-next') {
+      if (array[i + 1]) {
+        newArray.push(array[i + 1]);
+      }
     }
-    if (arr[i] == '--double-prev') {
-        let result = arr.slice(0, i) + "," + arr[i - 1] + "," + arr.slice(i + 1);
-        let newArray = result.replace(/,*$/, '');
-        return newArray;
+    else if (array[i] == '--double-prev') {
+      if (array[i - 1] && array[i - 1] ==  newArray[newArray.length - 1]) {
+        newArray.push(array[i - 1]);
+      }
+    } else {
+      newArray.push(array[i]);
     }
-    return result;
-}};
-
+  }
+  return newArray;
+};
+//npm run test
 module.exports = {
   transform
 };

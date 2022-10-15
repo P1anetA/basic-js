@@ -11,31 +11,31 @@ const chainMaker = {
     // console.log(length);
     return this.result.length;
   },
-  addLink(n) {
-    if (!n || n.length === 0) {
-      this.result.push('( )');
-      return this;
-    }
-    this.result.push(`( ${n} )`);
+  addLink(n = '') {
+    this.result.push(n);
     return this;
   },
   removeLink(position) {
-    if (isNaN(position) || position % 1 != 0) {
-      return Error(`You can't remove incorrect link!`);
+    if (typeof position !== 'number' || position < 1 || position > this.result.length) {
+      this.result = [];
+      throw new Error(`You can't remove incorrect link!`);
+    } else {
+      this.result.splice(position - 1, 1);
+      return this;
     }
-    this.result = this.result.filter(r => r !== this.result[position - 1])
-    return this;
   },
   reverseChain() {
-    this.result = this.result.reverse()
+    this.result = this.result.reverse();
     return this;
   },
   finishChain() {
-    return this.result.join('~~');
+    let final = this.result.map(el => `( ${el} )`).join('~~');
+    this.result.length = 0;
+    return final;
   }
 };
 // console.log(chainMaker.addLink().addLink(2).addLink(3).removeLink().reverseChain().finishChain())
-
+// npm run test
 module.exports = {
   chainMaker
 };
