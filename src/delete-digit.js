@@ -15,8 +15,8 @@ function deleteDigit(n) {
   let result = [];
   let input = n.toString().split('');
   for (let i = 0; i < input.length; i++) {
-    let newImput = input.filter((_, index) => index != i);
-    result.push(newImput.join(''));
+    let newInput = input.filter((el, index) => index != i);
+    result.push(newInput.join(''));
   }
   return Math.max(...result);
 }
