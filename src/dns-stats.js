@@ -35,16 +35,17 @@ function getDNSStats(domains) {
       }
       return arr;
   };
-    for (let i = 0; i < result.length; i++){
-      for (let j = 0; j < result[i].length; j++){
-      let objects_key = Object.keys(objects);
-      let index = objects_key.indexOf(result[i][j]);
-      if (index == -1) {
-        objects[result[i][j]] = 1;
-      } else {
-        objects[objects_key[index]]++;
-      }
-     }}
+  for (let i = 0; i < result.length; i++){
+    for (let j = 0; j < result[i].length; j++){
+    let objects_key = Object.keys(objects);
+    let index = objects_key.indexOf(result[i][j]);
+    if (index == -1) {
+      objects[result[i][j]] = 1;
+    } else {
+      objects[objects_key[index]]++;
+    }
+    }
+  }
   return objects;
 }
 
