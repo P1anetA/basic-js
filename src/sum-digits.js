@@ -17,7 +17,7 @@ function getSumOfDigits(n) {
  for (let i = input.length; i > 0; i--) {
    input = Array.from(String(input.reduce((partialSum, a) => partialSum + a, 0)), Number); 
  }
- return input;
+ return Number(input);
 }
 module.exports = {
   getSumOfDigits
